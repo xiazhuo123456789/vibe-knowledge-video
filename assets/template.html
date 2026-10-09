@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<!--
+  Vibe知识大赏 · 标准模板 index.html (v2)
+  ======================================
+  架构: 纯时间函数渲染。window.render(t) 画出第 t 秒的画面。
+  规矩:
+    1. 画面只由 t 决定——随机数带固定种子，禁止 setTimeout/rAF 驱动内容
+    2. 五区布局: 左上水印 / 顶标签带 / 中央动画区(30-65%) / y70% 注释带 / y85-91% 双语字幕带
+    3. 深蓝黑底 #0A0A1E，白字 #EAEAF2；Juno 纸艺风: 金 #C9A96A + 米白纸 #EDE4D3 + 红印章 #B53A2F
+    4. 每句旁白 = 中文主句 + 英文斜体小字（双语标配）
+    5. 15-20 秒处落《片名》标题卡；缓动 easeInOut/弹簧，禁止匀速
+    6. 每句字幕停留 ≥ 2.5s；同一画面 ≤ 4s 必须有新元素（画面密度实测均值 3.97）
+  使用: 替换 CFG / SUBTITLES / SECTIONS / TITLE_CARD，在 drawScene 里实现中央动画。
+-->
+<title>Vibe知识大赏 · 模板</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;900&family=Noto+Sans+SC:wght@400;500;700;900&family=EB+Garamond:ital@0;1&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: #0A0A1E; }
+  #stage { position: relative; width: 1920px; height: 1080px; background: #0A0A1E; }
+  .layer { position: absolute; inset: 0; }
+  #bg { z-index: 1; } #scene { z-index: 10; } #overlay { z-index: 20; }
+
+  #watermark { position: absolute; top: 40px; left: 56px; z-index: 30;
+    font: 500 26px 'Noto Sans SC'; color: rgba(234,234,242,.45); letter-spacing: 2px; }
+  #toplabel { position: absolute; top: 44px; left: 0; right: 0; z-index: 30;
+    text-align: center; font: 500 30px 'Noto Sans SC'; color: #8A8AA0; letter-spacing: 6px; }
+  #annotation { position: absolute; top: 756px; left: 0; right: 0; z-index: 30;
+    text-align: center; font: 400 27px 'Noto Sans SC'; color: #8A8AA0; }
+
+  /* 双语旁白字幕: 中文主句 + 英文斜体 */
+  #subtitle { position: absolute; top: 906px; left: 0; right: 0; z-index: 40; text-align: center;
+    font: 700 46px 'Noto Sans SC'; color: #EAEAF2; letter-spacing: 1px;
+    text-shadow: 0 2px 24px rgba(0,0,0,.8); }
+  #subtitle em { font-style: normal; color: #C9A96A; }
+  #subtitle-en { position: absolute; top: 972px; left: 0; right: 0; z-index: 40; text-align: center;
+    font: italic 400 26px 'EB Garamond', serif; color: #8A8AA0; letter-spacing: .5px; }
+
+  /* 标题卡（15-20s 处，全屏元素） */
+  #titlecard { position: absolute; inset: 0; z-index: 50; display: none;
+    align-items: center; justify-content: center; flex-direction: column; gap: 26px; }
+  #titlecard .series { font: 500 24px 'Noto Sans SC'; color: rgba(201,169,106,.75); letter-spacing: 14px; text-indent: 14px; }
+  #titlecard .name   { font: 900 118px 'Noto Serif SC', serif; color: #C9A96A; letter-spacing: 6px;
+    text-shadow: 0 4px 40px rgba(201,169,106,.25); }
+  #titlecard .q      { font: 500 34px 'Noto Sans SC'; color: #EAEAF2; margin-top: 14px; }
+  #titlecard .q-en   { font: italic 400 26px 'EB Garamond', serif; color: #8A8AA0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <canvas id="bg" class="layer" width="1920" height="1080"></canvas>
+  <canvas id="scene" class="layer" width="1920" height="1080"></canvas>
+  <div id="overlay" class="layer"></div>
+  <div id="watermark">@你的名字</div>
+  <div id="toplabel"></div>
+  <div id="annotation"></div>
+  <div id="subtitle"></div>
+  <div id="subtitle-en"></div>
+  <div id="titlecard">
+    <div class="series">VIBE知识大赏</div>
+    <div class="name">《片名》</div>
+    <div class="q">一句话副标题？</div>
+    <div class="q-en">One-line Question</div>
+  </div>
+</div>
+
+<script>
+/* ================= 配置区（换成你的分镜） ================= */
+const CFG = {
+  duration: 130, fps: 30,
+  accent: '#C9A96A', ink: '#EAEAF2', dim: '#8A8AA0',
+  topic: '主题词',
+};
+
+/* 旁白字幕: [起秒, 止秒, 中文(可用<em>强调</em>), 英文]。双语是 Juno 系列标配 */
+const SUBTITLES = [
+  [0.0, 4.0,  '假如这一生，你会遇见<em>10个</em>可能的人', 'Say you will meet 10 people in your life.'],
+  [4.0, 8.0,  '他们一个一个出现，错过了，就不能回头', 'They arrive one at a time. Let one go, and they\'re gone.'],
+  // ... 按剧本填充，每句 ≥ 2.5s
+];
+
+/* 标题卡: [起秒, 止秒, 片名, 副标题, 英文副标题]。约 15-20s 处 */
+const TITLE_CARD = [14, 20, '《第几个人》', '什么时候，该停止相亲？', 'When to Stop Looking'];
+
+/* 章节: [起秒, 顶标签, 画面注释] */
+const SECTIONS = [
+  [0,  '', ''],
+  [21, '游戏规则 · The rules of the game', ''],
+  // ...
+];
+
+/* ================= 工具函数 ================= */
+const clamp = (x,a,b)=>Math.max(a,Math.min(b,x));
+const lerp  = (a,b,t)=>a+(b-a)*t;
+const easeInOut = t => t<.5 ? 2*t*t : 1-((-2*t+2)**2)/2;
+const easeOut = t => 1-(1-t)**3;
+function mulberry32(seed){ return function(){ let t = seed += 0x6D2B79F5;
+  t = Math.imul(t ^ t>>>15, t|1); t ^= t + Math.imul(t ^ t>>>7, t|61);
+  return ((t ^ t>>>14)>>>0)/4294967296; }; }
+const rnd = mulberry32(20261009);
+
+/* ================= 背景层 ================= */
+const bg = document.getElementById('bg'), bgc = bg.getContext('2d');
+const STARS = Array.from({length: 90}, () => ({x: rnd()*1920, y: rnd()*1080, r: rnd()*1.4+.3, p: rnd()*Math.PI*2}));
+function drawBG(t){
+  const g = bgc.createRadialGradient(960,540,100, 960,540,1200);
+  g.addColorStop(0, '#0E0E26'); g.addColorStop(1, '#050510');
+  bgc.fillStyle = g; bgc.fillRect(0,0,1920,1080);
+  for (const s of STARS){
+    const a = .25 + .35*Math.abs(Math.sin(t*.7 + s.p));
+    bgc.fillStyle = `rgba(234,234,242,${a})`;
+    bgc.fillRect(s.x, s.y, s.r, s.r);
+  }
+}
+
+/* ================= 纸艺母题库（Juno 风，按需调用） ================= */
+function drawPaperCard(c, x, y, w, h, rot, t){
+  c.save(); c.translate(x, y); c.rotate(rot);
+  c.shadowColor = 'rgba(0,0,0,.5)'; c.shadowBlur = 24; c.shadowOffsetY = 8;
+  c.fillStyle = '#EDE4D3'; roundRect(c, -w/2, -h/2, w, h, 6); c.fill();
+  c.shadowColor = 'transparent';
+  c.strokeStyle = 'rgba(0,0,0,.08)'; c.lineWidth = 1;
+  roundRect(c, -w/2+6, -h/2+6, w-12, h-12, 4); c.stroke();
+  c.restore();
+}
+function drawRedSeal(c, x, y, text, t){  /* 红印章 */
+  c.save(); c.translate(x, y);
+  c.fillStyle = 'rgba(181,58,47,.85)';
+  c.font = "700 26px 'Noto Serif SC'"; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(text, 0, 0);
+  c.strokeStyle = 'rgba(181,58,47,.9)'; c.lineWidth = 2.5;
+  const w = c.measureText(text).width + 18;
+  c.strokeRect(-w/2, -20, w, 40);
+  c.restore();
+}
+function drawClothesline(c, t, cards){  /* 晾衣绳卡片: cards=[{n:'?', revealed}] */
+  const y0 = 300;
+  c.save();
+  c.strokeStyle = '#B53A2F'; c.lineWidth = 3;
+  c.beginPath(); c.moveTo(0, y0);
+  c.quadraticCurveTo(960, y0+30, 1920, y0); c.stroke();
+  const n = cards.length, gap = 150, x0 = 960 - (n-1)*gap/2;
+  cards.forEach((card, i) => {
+    const sway = Math.sin(t*.8 + i*1.3) * .04;   /* 持续摆动=生命感 */
+    const x = x0 + i*gap;
+    c.save(); c.translate(x, y0); c.rotate(sway);
+    c.fillStyle = '#8B7355'; c.fillRect(-4, 0, 8, 18);   /* 木夹 */
+    drawPaperCard(c, 0, 78, 92, 118, sway*.5, t);
+    c.fillStyle = card.revealed ? '#3A2E20' : 'rgba(0,0,0,.35)';
+    c.font = `900 ${card.revealed?54:44}px 'Noto Serif SC'`;
+    c.textAlign = 'center'; c.textBaseline = 'middle';
+    c.fillText(card.n, 0, 78);
+    c.restore();
+  });
+  c.restore();
+}
+
+/* ================= 场景层（自行实现分镜） ================= */
+const sc = document.getElementById('scene'), scc = sc.getContext('2d');
+function drawScene(t){
+  scc.clearRect(0,0,1920,1080);
+  // 示例: 4-8s 晾衣绳卡片（视频5 的"他们一个一个出现"母题）
+  const k = easeInOut(clamp((t-3.5)/1.5, 0, 1));
+  if (k > 0 && t < 14){
+    scc.globalAlpha = k;
+    drawClothesline(scc, t, [
+      {n:'6', revealed: t>5.5}, {n:'?'}, {n:'?'}, {n:'?'}, {n:'?'}, {n:'?'}, {n:'?'}, {n:'?'},
+    ]);
+    scc.globalAlpha = 1;
+  }
+}
+function roundRect(c,x,y,w,h,r){ c.beginPath(); c.moveTo(x+r,y);
+  c.arcTo(x+w,y,x+w,y+h,r); c.arcTo(x+w,y+h,x,y+h,r);
+  c.arcTo(x,y+h,x,y,r); c.arcTo(x,y,x+w,y,r); c.closePath(); }
+
+/* ================= 覆盖层 ================= */
+const $ = id => document.getElementById(id);
+function drawOverlay(t){
+  const inTitle = t >= TITLE_CARD[0] && t < TITLE_CARD[1];
+  // 双语字幕
+  const sub = SUBTITLES.find(([a,b]) => t >= a && t < b);
+  const el = $('subtitle'), elEn = $('subtitle-en');
+  if (sub && !inTitle) {
+    const [a, b, zh, en] = sub;
+    const kIn  = easeInOut(clamp((t-a)/0.45, 0, 1));
+    const kOut = 1 - easeInOut(clamp((t-(b-0.4))/0.4, 0, 1));
+    el.style.opacity = kIn * kOut;
+    el.style.transform = `translateY(${lerp(8,0,kIn)}px)`;
+    el.innerHTML = zh; elEn.textContent = en || '';
+    elEn.style.opacity = kIn * kOut * .9;
+  } else { el.innerHTML = ''; elEn.textContent = ''; }
+  // 标题卡
+  const tc = $('titlecard');
+  if (inTitle) {
+    tc.style.display = 'flex';
+    const k = easeInOut(clamp((t-TITLE_CARD[0])/1.2, 0, 1));
+    tc.style.opacity = k;
+    tc.querySelector('.name').textContent = TITLE_CARD[2];
+    tc.querySelector('.q').textContent = TITLE_CARD[3];
+    tc.querySelector('.q-en').textContent = TITLE_CARD[4];
+    tc.querySelector('.name').style.transform = `scale(${lerp(.92, 1, easeOut(k))})`;
+  } else tc.style.display = 'none';
+  // 章节标签
+  let sec = SECTIONS[0] || [0,'',''];
+  for (const s of SECTIONS) if (t >= s[0]) sec = s;
+  $('toplabel').textContent = sec[1] ? `${CFG.topic ? CFG.topic + '　' : ''}${sec[1]}` : CFG.topic;
+  $('annotation').textContent = sec[2] || '';
+}
+
+/* ================= 帧入口 ================= */
+window.render = function(t){
+  drawBG(t); drawScene(t); drawOverlay(t);
+};
+/* 浏览器实时预览用。渲染管线设 window.__RENDER_MODE__=true 后停止，
+   保证逐帧截图时画面只由 render(t) 决定。 */
+let t0 = performance.now();
+(function loop(){
+  if (window.__RENDER_MODE__) return;
+  window.render((performance.now()-t0)/1000);
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

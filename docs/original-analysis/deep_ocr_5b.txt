@@ -1,0 +1,71 @@
+[ 60s] 1613 ¦ ii T - EFERDING                                                © ¦ Stic + 苏珊娜 ¦ 1613年成婚， 婚后幸福
+[ 61s] 1613                      ; ¦ ii T - EFERDING ¦ Bote - 苏珊娜 ¦ 1613年成婚， 婚后幸福 ¦ 后来算出的最优解，也恰好指向第5位 ¦ The maths, worked our laren poesia te pr meemelt
+[ 62s] 1613                                                    ; ¦ igi T - EFERDING ¦ onal     r  ee ee a ¦ Bote - 苏珊娜 ¦ 1613年成婚' 婚后幸福 ¦ 后来算出的最优解，也恰好指向第5位 ¦ The maths, worked our laren poesia te pineal
+[ 63s] 如果人生可以重来一万次? ¦ Whar if you could live it ten thousand times?
+[ 64s] 如果人生可以重来一万次? ¦ What if you could live it ten thousand times?
+[ 65s] -万次人生 @ 选中了最好的那位 ¦ iualgtig Seale tanya       e ¦ Peete aie ed ¦ Rae Seen ane ee ¦ pete ewer            am ¦ Deh se SEEM e.    * ¦ SESE EEL RUD Sat ¦ Pee Seg Sees              本 ¦ 生生 LAC A SR eh ¦ al                                     只看不饮的人数 k GEA) ¦ 先看1位 成功率 27.7%
+[ 66s] 万次人生”鲜 选中了最好的那位 ¦ Cee Saag ¦ rien ed ¦ od ee Sere     am ¦ Perea cee canoer ned ¦ 生生 hr ely ntaee es      os ¦ DEES LBD ES eg, ¦ fe coals ¦ Rotimi rt       ° ¦ fiscal              ro@ 3 ¢ 8 @ F 8 9 ¦ SESE hear noe eee                                      RBABM AM k GEA) ¦ 先看3位“成功率39.8%
+[ 67s] BR @ 选中了最好的那位 ¦ Pe Geet igs oon ng ¦ SSS Seed ¦ Pope 0 Die ia ped cee              . ¦ cySh He uicetns SAS ¦ Doo At SAESe a Cone Roe            > ¦ ee ees                               ABABM ARK GEA) ¦ 先看5位 成功率 37.4% ¦ 先只看不选前 k 位，再选第一个更好的 ¦ Skip che firse k. Then cake the first one Better chan all of them.
+[ 68s] BRAT @ 选中了最好的那位 ¦ Dba nae) amie FERRE ¦ i ohga uate a oeeanh lees       四 ¦ Cao tees See aes ¦ Pe aigenhe ce rena ¦ Pritts Pein erases               . ¦ a                                   SURNAM k (共10人) ¦ 先看7位 成功率26.8% ¦ 先只看不选前 k 位，再选第一个更好的 ¦ Skip the firse k. Then take che first one better than all of them.
+[ 69s] BUA @ 选中了最好的那位 ¦ 先看9 位 成功率 10.6% ¦ 先只看不选前 k 位，再选第一个更好的 ¦ Skip che first k, Then take the first one better than all of them.
+[ 70s] 万次人生”鲜 选中了最好的那位 ¦ een nerer atau  ee 1                ‘     i     ‘  peeraes ; Bene   7     Hl     i. ¦ 先看9 位 成功率10.0% ¦ 先只看不选前 k 位，再选第一个更好的 ¦ Skip the first k Then take che first one bercer chan all of chem
+[ 71s] “BURA @ 选中了最好的那位 ¦ cease ont ice cacce.           am ¦ Fo as Oe ence] ¦ 一                       只看不过的人到 k《共10人) ¦ 先看9 位 成功率 10.0%
+[ 72s] 成功率 ¦ 40% ¦ 20% ¦ 0%                      25%                      50%                      75%                     100% ¦ 只看不选的比例 (人数很多时)
+[ 73s] 成功率 ¦ 20% ¦ 10 ¦ 0%             25%             50%             75%            100% ¦ 只看不选的比例(人数很多时)
+[ 74s] 成功率 ¦ 408                         = ¦ 20%                                           ES ¦ 10% ¦ 0%             25%             50%             75%            100% ¦ 只看不选的比例(人数很多时)
+[ 75s] 成功率 ¦ 30%                                          ss ¦ 20%.                                                                     SS > ¦ 0%                25%               50%               75%               100% ¦ MORIA, E— ¦ The best strategy stops at
+[ 76s] s    成功率最高的那个点，在一
+[ 77s] y                成功率最高的那个点，在-一
+[ 78s] 成功率最高的那个点，在一
+[ 79s] 
+[ 80s] 
+[ 81s] 
+[ 82s] 
+[ 83s] 1/e% 3685   ; os        , ¦ 先看37%，再出手 ¦ Look at the firse 37%. Then leap.
+[ 84s] 先看37%，再出手 ¦ Look at the first 37%. Then leap.
+[ 85s] 37% 本
+[ 86s] a            :                         _                        _           Saal ¦ RI ABBE                  决定期，遇到更好的，就选 ¦ 前37%: 只看不选，建立你的标准
+[ 87s] BEBBBEBRBREE ¦ 探索期.只看不选                 决定期，遇到更好的，就选 ¦ 前37%: 只看不选，建立你的标准
+[ 88s] BRBEBEBEBBEEE ¦ 探索期.只看不选                  决定期，遇到更好的，就选 ¦ 前37%: 只看不选，建立你的标准
+[ 89s] 探索期 RABE                 决定期，遇到更好的，就选
+[ 90s] 探索期，只看不选                 决定期 ，遇到更好的，就和 ¦ 之后: 遇到第一个比前面都好的，就是Ta ¦ After that: the first one better than everyone before. That's them.
+[ 91s] vats 8                                                        i. == ¦ 探索期“只看不先                 决定期.这到更好的，就选 ¦ 之后: 遇到第一个比前面都好的，就是Ta
+[ 92s] RR - ABR                  决定期，遇到更好的，就选 ¦ 之后: 遇到第一个比前面都好的，就是Ta ¦ After that: the first one betcer than everyone before. That's them
+[ 93s] a)                       30 ¦ 探索期，只看不选                  决定期，遇到更好的，就选
+[ 94s] 人数 10 ¦ 37% ¦ 先看3位 + 成功率 39.9% ¦ 人数再多， 答案都稳稳停在372%附近
+[ 95s] 人数100 ¦ 37% ¦ 先看37 位 。 成功率 37.1% ¦ 人数再多， 答案都稳稳停在37%附近
+[ 96s] x 1000 ¦ 37% ¦ KB 368 位 ， 成功率 36.8% ¦ 人数再多，答案都稳稳停在37%附近
+[ 97s] /人数1000 ¦ 37% ¦ KA 368 位 ， 成功率 36.8% ¦ 人数再多，答军都稳稳停在3   附近
+[ 98s] 20%                                                      258                                                       30%                                                       35岁 ¦ 假如你打算在20到35岁之间，遇见对的人 ¦ Say you hope to meet the righe person between 20 and 35
+[ 99s] 20%                                                      25                                                       308                                                       35岁 ¦ 假如你打算在20到35岁之间，遇见对的人 ¦ Say you hope to meer the right person berween 20 and 35.
+[100s] 20%                25%                30                35 ¦ (BLAH RFT EE 2033547 Zia, TLE A ¦ Say you hope to meet the right person between 20 and 35
+[101s] 20y                25y                308                35 ¦ 假如你打算在20到35岁之间，遇见对的人
+[102s] 25.5» ¦ PrpmpmmmmiempmmmmRmamammeng ¦ 20%                    25%                     30%                     35y ¦ 37%W RE, 25.547 ¦ 37% of che way there is 25.5.
+[103s] 20%              258              30”              358 ¦ 多认识，多了解            遇到比之前都好的，认真考虑 ¦ 37%的位置，  是25.5岁 ¦ 37% of the way there is 25.5.
+[104s] 20%              258              30”              358 ¦ 多认识，多了解            遇到比之前都好的，认真考虑 ¦ 37%的位置，  是25.5岁 ¦ 37% of the way there is 25.5.
+[105s] 25.5% ¦ Tree ¦ 20%              25y              30%              35岁 ¦ 多认识，多了解            遇到比之前都好的，认真考虑 ¦ 37%%的位置，是25.5岁 ¦ 37% of the way there is 25.5.
+[106s] 看房 ¦ 看房、招聘、找车位……过了就没了的选择
+[107s] 看房         招聘 ¦ 看房、招聘、找车位……过了就没了的选择
+[108s] 看房         招聘        找车位 ¦ 看房、招聘、找车位……过了就没了的选择
+[109s] 看房        招聘       找车位      选offer ¦ Renting                    Hiring                    Parking                   Job offers ¦ 看房、招聘、找车位……过了就没了的选择
+[110s] 对方也可能拒绝你 1p ciey mighe say no ¦ on                     *                                  100% ¦ 36% ¦ 对方有一半可能拒绝你”25%就出手 ¦ If they might say no half the time: leap at 25
+[111s] 对方也可能拒绝你 siey mighe say no ¦ ow               2                                        100% ¦ 25% ¦ 对方有一半可能拒绝你”25%就出手 ¦ If chey mighe say no half the time: leap at 25:
+[112s] 对方也可能拒绝你 chey mighe say no ¦ 0一人 100% ¦ 25% ¦ 对方有一半可能拒绝你”25%就出手 ¦ If chey might say no half the time: leap at 25%.
+[113s] 对方也可能拒绝你 orey mighe say no ¦ 25% ¦ 辆 可以回头，像开普勒 Wow can go back ¦ 0                  e                            100° ¦ 37% ¦ JERE, RIFE BEE? 61% ¦ If you can go back, like Kepler: 61:
+[114s] 对方也可能拒绝你 Waney mighe say no ¦ 25% ¦ WE 可以回头，像开普勒 fyov can go back ¦ 全                100: ¦ 61% ¦ JERE, RIFE BEE? 61% ¦ If you can go back, like Kepler: 61%
+[115s] 对方也可能拒绝你 1p chey mighe say no ¦ 25% ¦ WE 可以回头，像开普勒 fyov can go back ¦ 和                     100% ¦ 61% ¦ JERE, RIFE BEE? 61% ¦ If you can go back, like Kepler: 61%,
+[116s] 但最好的策略，成功率也只有37%
+[117s] 但最好的策略，成功率也只有379% ¦ But even the best strategy works only 37% of the time.
+[118s] 但最好的策略，成功率也只有379%4 ¦ But even the best strategy works only 37% of the time
+[119s] 63%的时候，最好的人依然会错过 ¦ 63% of che time, you still miss the best one
+[120s] 63%的时候，最好的人依然会错过 ¦ 63% of the time, you still miss the best one
+[121s] 63%的时候，最好的人依然会错过 ¦ 63% of the time, you still miss the best one
+[122s] 所以错过了，不是你不够好 ¦ So if you missed them, ie wasn'e because you weren't enough
+[123s] ES EDEN ERNE 000% ¦ 所以错过了，不是你不人够好 ¦ So if you missed them, ic iaasnt because you weren't enough: ¦ 是那些相遇，教会了你什么是
+[124s] 所以错过了，不是你不够好 ¦ 是那些相遇，教会了你什么是好
+[125s] 轩辕午午回国站 ¦ 所以错过了，不是你不够好 ¦ 是那些相遇，教会了你什么是好
+[126s] BESE ¦ 爱情没有最优解 ¦ Love has no optimal solution.
+[127s] 爱情没有最优解 ¦ Love has no optimal solution ¦ 但每一次认真的相遇，都算数
+[128s] 爱情没有最优解 ¦ Love has no optimal solution ¦ 但每一次认真的相遇，都算数
+[129s] 爱情没有最优解 ¦ Love has no optimal solution ¦ 但每一次认真的相遇，都算数
+[130s] 
