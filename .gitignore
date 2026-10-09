@@ -1,0 +1,15 @@
+# 渲染中间产物
+out_frames/
+*.png.tmp
+frames/
+
+# 音频/视频产物（大文件不入库）
+*.wav
+*.mp4
+!docs/**/*.mp4
+
+# 系统文件
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
