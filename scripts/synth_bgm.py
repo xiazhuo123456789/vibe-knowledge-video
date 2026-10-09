@@ -41,9 +41,9 @@ def pad_tone(freq, dur, amp=0.10):
 
 def piano_tone(freq, dur, amp=0.16):
     n = int(dur*SR); t = np.arange(n)/SR
-    # 简易钢琴: 基频+泛音，指数衰减
+    # 简易钢琴: 基频+泛音，指数衰减（衰减放缓，小节间余音衔接更绵）
     w = np.sin(2*np.pi*freq*t) + 0.5*np.sin(2*np.pi*freq*2*t) + 0.25*np.sin(2*np.pi*freq*3*t) + 0.12*np.sin(2*np.pi*freq*4.02*t)
-    envl = np.exp(-t*2.2) * env_ad(n, 0.004, 0.1)
+    envl = np.exp(-t*1.7) * env_ad(n, 0.004, 0.1)
     return amp * w * envl / 2.0
 
 def kick(dur=0.22, amp=0.30):
@@ -98,19 +98,18 @@ def main():
             if a <= t < b: return tex
         return sections[-1][2] if sections else 'full'
 
-    # 1) pad: 每小节换和弦，铺满全曲
+    # 1) pad: 每小节换和弦，铺满全曲（写入 tpos 对应位置；段间交叉淡化防低谷）
     tpos = 0.0; ci = 0
     while tpos < args.duration:
         chord = PROGRESSIONS[args.key][ci % 4]
         dur = min(bar, args.duration - tpos)
         if dur < 0.4: break
-        seg = np.zeros(total_n)
-        n = int(dur*SR)
+        i0 = int(tpos*SR)
+        overlap = 0.6  # 与下一小节交叉 0.6s，交界处不断层
         for i, note in enumerate(chord):
             amp = 0.09 if i == 0 else 0.055
-            tone = pad_tone(note_freq(note), dur, amp)
-            seg[:len(tone)] += tone
-        mix += seg
+            tone = pad_tone(note_freq(note), min(dur + overlap, args.duration - tpos), amp)
+            mix[i0:i0+len(tone)] += tone[:max(0, total_n-i0)]
         tpos += dur; ci += 1
 
     # 2) 钢琴柱式和弦：每小节第一拍
