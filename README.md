@@ -46,6 +46,18 @@ cp -r vibe-knowledge-video ~/.codebuddy/skills/
 cp -r vibe-knowledge-video /path/to/your/project/.codebuddy/skills/
 ```
 
+### 在豆包 / Codex / Cursor / Trae 上使用
+
+本技能不绑定 CodeBuddy——**知识文档任何 AI 都能读，渲染流水线需要能执行命令的环境**：
+
+| 工具 | 用法 |
+|---|---|
+| OpenAI Codex CLI | clone 本仓库直接开工，根目录 `AGENTS.md` 自动生效 |
+| Cursor / Trae | clone 后让 AI「先读 SKILL.md 和 AGENTS.md 再动手」 |
+| 豆包网页版/App | 当编剧+码农用（出剧本/分镜/index.html），渲染在你本地跑 |
+
+详见 **[docs/use-with-other-ai.md](docs/use-with-other-ai.md)**（含豆包版完整操作流与本地渲染命令）。
+
 ### 依赖
 
 | 工具 | 用途 | 说明 |
@@ -93,6 +105,7 @@ python3 scripts/qa_check.py final.mp4
 ```
 vibe-knowledge-video/
 ├── SKILL.md                    # 技能主文件：触发条件 + 七步工作流 + 铁律
+├── AGENTS.md                   # 通用 AI 入口指令（Codex/Cursor/Trae 自动识别）
 ├── references/
 │   ├── style-guide.md          # 风格 DNA 完整规范（布局坐标/配色/动效/母题库）
 │   ├── narrative-templates.md  # 8 条原片逐段拆解 + 六段式剧本模板 + 选题公式
@@ -105,6 +118,7 @@ vibe-knowledge-video/
 ├── assets/
 │   └── template.html           # 标准模板：开箱即改的分镜配置区
 ├── docs/
+│   ├── use-with-other-ai.md    # 豆包/Codex/Cursor/Trae 跨平台使用指南
 │   └── original-analysis/      # 8 条原片逐秒 OCR 记录（风格逆向的一手数据）
 ├── examples/                   # 示例项目（欢迎 PR 你的作品）
 ├── README.md
